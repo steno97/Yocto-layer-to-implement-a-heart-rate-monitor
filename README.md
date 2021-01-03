@@ -1,5 +1,7 @@
 # ***Yocto layer to implement a heart rate monitor***
 
+In the following sentences I explain how to integrate my application in a Yocto-based distribution.
+
 After the clone operation is finished, we have to do these operations:
 
 in the poky directory, we prepare the build environment
