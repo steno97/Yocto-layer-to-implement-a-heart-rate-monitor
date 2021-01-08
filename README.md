@@ -11,10 +11,25 @@ source oe-init-build-env build_qemuarm
 
 we can now add the layer to the image configuration
 ```
-bitbake-layers add-layer ../layer_name /
+bitbake-layers add-layer ../app /
+```
+
+after that we have to open the file "local.conf" (conf/local.conf) and add the following lines:
+```
+IMAGE_INSTALL_append = " mymod"
+KERNEL_MODULE_AUTOLOAD += "mymod"
+IMAGE_INSTALL_append = " heartbeat"
 ```
 
 We can now build the new image by issuing the command:
 ```
 bitbake core-image-minimal
+```
+
+
+after running we have to do on the qemuarm machine the following comand:
+```
+root
+mknod /dev/mymod c 251 0
+heartbeat
 ```
