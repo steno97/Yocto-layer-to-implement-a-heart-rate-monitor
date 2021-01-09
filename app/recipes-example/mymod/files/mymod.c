@@ -52,7 +52,7 @@ static int __init mymod_module_init(void)
     printk(KERN_INFO "%s\n", format_dev_t(buffer, mymod_dev));
 
     myclass = class_create(THIS_MODULE, "mymod_sys");
-    device_create(myclass, NULL, mymod_dev, NULL, "mymod_dev");
+    device_create(myclass, NULL, mymod_dev, NULL, "mymod");
 
     cdev_init(&mymod_cdev, &mymod_fops);
     mymod_cdev.owner = THIS_MODULE;

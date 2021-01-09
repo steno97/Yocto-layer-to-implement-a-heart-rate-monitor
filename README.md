@@ -27,9 +27,8 @@ bitbake core-image-minimal
 ```
 
 
-after running we have to do on the qemuarm machine the following comand:
+after running to run the application we have to execute on the qemuarm machine the following comands:
 ```
 root
-mknod /dev/mymod c 251 0
 heartbeat
 ```
