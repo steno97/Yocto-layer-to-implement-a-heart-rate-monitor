@@ -24,7 +24,7 @@ int iter=0;
 ssize_t mymod_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
 {
     printk(KERN_INFO "[mymod] read (count=%d, offset=%d)\n", (int)count, (int)*f_pos );
-	if(iter==2050){
+	if(iter==2049){
 		iter=0;
 	}
 	data=ppg[iter];	
