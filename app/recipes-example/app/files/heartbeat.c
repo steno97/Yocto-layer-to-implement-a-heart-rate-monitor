@@ -59,21 +59,19 @@ int main(void)
 
 	// Initialize the complex array for FFT computation
 	//ciclo infinito
+	fd = -1;
+	if ((fd = open("/dev/mymod", O_RDWR)) < 0) {
+		fprintf(stderr, "%s: unable to open %s: %s\n", "heartbeat", "/dev/mymod", strerror(errno));
+		return( 1 );
+	}
 	while(1){
-		fd = -1;
-		if ((fd = open("/dev/mymod", O_RDWR)) < 0) {
-			fprintf(stderr, "%s: unable to open %s: %s\n", "heartbeat", "/dev/mymod", strerror(errno));
-			return( 1 );
-		}
 		 for(k=0; k<N; k++) {
-			read (fd, &valore_thread,4);			
+			read (fd, &valore_thread,4);		
 			sleep(0.02);
 			v[k].Re = valore_thread;
 			v[k].Im = 0;
 		  }
-		if (fd >= 0) { // it closes the connection with the device
-			close(fd);
-		}
+		
 		 
 		// FFT computation
 		  fft( v, N, scratch );
@@ -95,6 +93,9 @@ int main(void)
 			
 		// Print the heart beat in bpm
 		  printf( "\n\n\n%d bpm\n\n\n", (m)*60*50/2048 );
+	}
+	if (fd >= 0) { // it closes the connection with the device
+		close(fd);
 	}
 	  exit(EXIT_SUCCESS);
 }

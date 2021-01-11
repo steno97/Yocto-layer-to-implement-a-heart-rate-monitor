@@ -21,15 +21,12 @@ int data;
 static char buffer[64];
 int iter=0;
 
-static int mymod_open_close(struct inode *inode, struct file *file){
-	iter=0;
-	return 0;
-}
-
 ssize_t mymod_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
 {
     printk(KERN_INFO "[mymod] read (count=%d, offset=%d)\n", (int)count, (int)*f_pos );
-	
+	if(iter==2050){
+		iter=0;
+	}
 	data=ppg[iter];	
 	copy_to_user(buf, &data, 4);
 	iter++;    
@@ -39,7 +36,6 @@ ssize_t mymod_read(struct file *filp, char __user *buf, size_t count, loff_t *f_
 struct file_operations mymod_fops = {
     .owner = THIS_MODULE,
     .read = mymod_read,
-    .open=mymod_open_close,
 };
 
 
